@@ -21,7 +21,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const spotsLeft = details.max_participants - details.participants.length;
         const participants = details.participants.length
-          ? details.participants.map((participant) => `<li>${participant}</li>`).join("")
+          ? details.participants
+              .map(
+                (participant) => `
+                  <li class="participant-row">
+                    <span class="participant-email">${participant}</span>
+                    <button
+                      type="button"
+                      class="participant-delete-btn"
+                      data-activity="${encodeURIComponent(name)}"
+                      data-email="${encodeURIComponent(participant)}"
+                      title="Unregister participant"
+                      aria-label="Remove ${participant} from ${name}"
+                    >
+                      🗑️
+                    </button>
+                  </li>
+                `
+              )
+              .join("")
           : '<li class="participants-empty">No participants yet</li>';
 
         activityCard.innerHTML = `
@@ -87,6 +105,51 @@ document.addEventListener("DOMContentLoaded", () => {
       messageDiv.className = "error";
       messageDiv.classList.remove("hidden");
       console.error("Error signing up:", error);
+    }
+  });
+
+  activitiesList.addEventListener("click", async (event) => {
+    const deleteButton = event.target.closest(".participant-delete-btn");
+    if (!deleteButton) {
+      return;
+    }
+
+    const activity = decodeURIComponent(deleteButton.dataset.activity || "");
+    const email = decodeURIComponent(deleteButton.dataset.email || "");
+
+    if (!activity || !email) {
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `/activities/${encodeURIComponent(activity)}/participants?email=${encodeURIComponent(email)}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const result = await response.json();
+
+      if (response.ok) {
+        messageDiv.textContent = result.message;
+        messageDiv.className = "success";
+        await fetchActivities();
+      } else {
+        messageDiv.textContent = result.detail || "An error occurred";
+        messageDiv.className = "error";
+      }
+
+      messageDiv.classList.remove("hidden");
+
+      setTimeout(() => {
+        messageDiv.classList.add("hidden");
+      }, 5000);
+    } catch (error) {
+      messageDiv.textContent = "Failed to unregister participant. Please try again.";
+      messageDiv.className = "error";
+      messageDiv.classList.remove("hidden");
+      console.error("Error unregistering participant:", error);
     }
   });
 

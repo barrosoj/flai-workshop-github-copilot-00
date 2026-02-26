@@ -8,20 +8,21 @@
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  color: #333;
+  color: #2e2a4a;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f5f5f5;
+  background: linear-gradient(180deg, #f5f8ff 0%, #f8f4ff 45%, #fff7f0 100%);
 }
 
 header {
   text-align: center;
   padding: 20px 0;
   margin-bottom: 30px;
-  background-color: #1a237e;
+  background: linear-gradient(135deg, #283593 0%, #5e35b1 55%, #8e24aa 100%);
   color: white;
   border-radius: 5px;
+  box-shadow: 0 10px 24px rgba(94, 53, 177, 0.28);
 }
 
 header h1 {
@@ -45,7 +46,7 @@ section {
   background-color: white;
   padding: 20px;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 22px rgba(59, 46, 120, 0.12);
   width: 100%;
   max-width: 500px;
 }
@@ -60,18 +61,50 @@ section h3 {
 .activity-card {
   margin-bottom: 15px;
   padding: 15px;
-  border: 1px solid #ddd;
+  border: 1px solid #d9d2ff;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background: linear-gradient(180deg, #ffffff 0%, #f7f4ff 100%);
+  box-shadow: 0 4px 12px rgba(72, 61, 139, 0.1);
 }
 
 .activity-card h4 {
   margin-bottom: 10px;
-  color: #0066cc;
+  color: #5e35b1;
 }
 
 .activity-card p {
   margin-bottom: 8px;
+}
+
+.participants-section {
+  margin-top: 12px;
+  padding: 10px;
+  border: 1px solid #ffc9de;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #fff1f7 0%, #f2f0ff 100%);
+}
+
+.participants-title {
+  margin-bottom: 6px;
+  color: #8e24aa;
+}
+
+.participants-list {
+  margin-left: 18px;
+  color: #4a3f78;
+}
+
+.participants-list li::marker {
+  color: #ec407a;
+}
+
+.participants-list li {
+  margin-bottom: 4px;
+}
+
+.participants-empty {
+  color: #7a6ea6;
+  font-style: italic;
 }
 
 .form-group {
@@ -94,18 +127,21 @@ section h3 {
 }
 
 button {
-  background-color: #1a237e;
+  background: linear-gradient(135deg, #3949ab 0%, #5e35b1 60%, #8e24aa 100%);
   color: white;
   border: none;
   padding: 10px 15px;
   font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  box-shadow: 0 6px 14px rgba(94, 53, 177, 0.26);
 }
 
 button:hover {
-  background-color: #3949ab;
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 10px 18px rgba(94, 53, 177, 0.32);
 }
 
 .message {
